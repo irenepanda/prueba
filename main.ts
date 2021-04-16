@@ -1,5 +1,13 @@
-tiles.setTilemap(tilemap`level1`)
-let mySprite = sprites.create(img`
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    mySprite.say(":(", 1000)
+    info.changeLifeBy(-1)
+})
+info.onLifeZero(function () {
+    game.over(false)
+})
+let mySprite: Sprite = null
+tiles.setTilemap(tilemap`level2`)
+mySprite = sprites.create(img`
     . . . . . . f f f f . . . . . . 
     . . . . f f f e e f f f . . . . 
     . . . f f f e e e e f f f . . . 
@@ -17,5 +25,9 @@ let mySprite = sprites.create(img`
     . . . . . f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `, SpriteKind.Player)
-scene.cameraFollowSprite(mySprite)
 controller.moveSprite(mySprite)
+mySprite.startEffect(effects.bubbles)
+scene.cameraFollowSprite(mySprite)
+info.setScore(0)
+info.setLife(3)
+music.playMelody("C A F B F D C5 A ", 40)
